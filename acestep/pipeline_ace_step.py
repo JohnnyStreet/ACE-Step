@@ -33,11 +33,11 @@ from diffusers.pipelines.stable_diffusion_3.pipeline_stable_diffusion_3 import (
 from diffusers.utils.torch_utils import randn_tensor
 from transformers import UMT5EncoderModel, AutoTokenizer
 
-from acestep.language_segmentation import LangSegment
-from acestep.music_dcae.music_dcae_pipeline import MusicDCAE
-from acestep.models.ace_step_transformer import ACEStepTransformer2DModel
-from acestep.models.lyrics_utils.lyric_tokenizer import VoiceBpeTokenizer
-from acestep.apg_guidance import (
+from .language_segmentation import LangSegment
+from .music_dcae.music_dcae_pipeline import MusicDCAE
+from .models.ace_step_transformer import ACEStepTransformer2DModel
+from .models.lyrics_utils.lyric_tokenizer import VoiceBpeTokenizer
+from .apg_guidance import (
     apg_forward,
     MomentumBuffer,
     cfg_forward,
