@@ -1453,7 +1453,7 @@ class ACEStepPipeline:
         # 6 lyric
         lyric_token_idx = torch.tensor([0]).repeat(batch_size, 1).to(self.device).long()
         lyric_mask = torch.tensor([0]).repeat(batch_size, 1).to(self.device).long()
-        if len(lyrics) > 0:
+        if lyrics:
             lyric_token_idx = self.tokenize_lyrics(lyrics, debug=debug)
             lyric_mask = [1] * len(lyric_token_idx)
             lyric_token_idx = (
