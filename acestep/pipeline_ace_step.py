@@ -10,6 +10,7 @@ import random
 import time
 import os
 import re
+from typing import Literal
 
 import torch
 import torch.nn as nn
@@ -1328,7 +1329,7 @@ class ACEStepPipeline:
         target_wav_duration_second=30,
         sample_rate=48000,
         save_path=None,
-        format="wav",
+        format=Literal["wav", "mp3"],
     ):
         output_audio_paths = []
         bs = latents.shape[0]
@@ -1339,20 +1340,20 @@ class ACEStepPipeline:
         pred_wavs = [pred_wav.cpu().float() for pred_wav in pred_wavs]
         for i in tqdm(range(bs)):
             output_audio_path = self.save_wav_file(
-                pred_wavs[i], i, sample_rate=sample_rate, save_path=save_path
+                pred_wavs[i], i, sample_rate=sample_rate, save_path=save_path, format=format
             )
             output_audio_paths.append(output_audio_path)
         return output_audio_paths
 
     def save_wav_file(
-        self, target_wav, idx, save_path=None, sample_rate=48000, format="wav"
+        self, target_wav, idx, save_path=None, sample_rate=48000, format=Literal["wav", "mp3"]
     ):
         if save_path is None:
             logger.warning("save_path is None, using default path ./outputs/")
-            base_path = f"./outputs"
+            base_path = "./outputs"
             ensure_directory_exists(base_path)
             output_path_wav = (
-                f"{base_path}/output_{time.strftime('%Y%m%d%H%M%S')}_{idx}.wav"
+                f"{base_path}/output_{time.strftime('%Y%m%d%H%M%S')}_{idx}.{format}"
             )
         else:                    
             output_path_wav=save_path
